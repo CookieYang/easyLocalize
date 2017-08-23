@@ -60,14 +60,14 @@ def writeTableToLocalizableFile(outPath,addTable, annotation):
         f.write('\n')
         f.writelines(annotation)
         f.write('\n')
-        if components[-2] == 'en.lproj':
+        if components[-2] == 'zh-Hans.lproj':
             for item in addTable:
-                f.writelines(item + ' = ' + r'" ";')
+                f.writelines(item + ' = ' + item + ';')
                 f.write('\n')
             f.close()
         else:
             for item in addTable:
-                f.writelines(item + ' = ' + item + ';')
+                f.writelines(item + ' = ' + r'" ";')
                 f.write('\n')
             f.close()
 
