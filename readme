@@ -1,0 +1,20 @@
+当前版本:1.0.2
+
+use:
+arg1: inputfilePaths(path1+path2+path3+...)
+arg2: outputfilePaths(path1+path2+path3+...)
+arg3(option): replace String(s)
+
+使用说明：
+第一个参数：需要加入本地化字符串的文件名，多个文件用加号隔开
+第二个参数：localizable.strings文件路径，多个用加号隔开
+第三个参数：可选，本地化字符串的宏名，例如LOC,会识别LOC(@"")这样的,默认是LOC
+
+版本：1.0.0
+支持：iOS项目
+
+版本1.0.1
+增加对输入路径是文件夹的支持
+
+版本1.0.2
+arg2:改为输入工程所在文件夹，自动寻找localizable.string文件(同样也支持直接输入文件名)
