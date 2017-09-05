@@ -7,28 +7,36 @@ import time
 import os
 import os.path
 
+def gci(filepath, tmp):
+#遍历filepath下所有文件，包括子目录
+  files = os.listdir(filepath)
+  for fi in files:
+    fi_d = os.path.join(filepath,fi)
+    if os.path.isdir(fi_d):
+      gci(fi_d,tmp)
+    else:
+      tmp.append(os.path.join(filepath,fi_d))
+
 def dealWithArgs(arg):
     return arg.split('+')
 
 def dealWithPaths1(paths):
-    cPaths = []
-    tmpPaths = dealWithArgs(paths)
-    for path in tmpPaths:
-        if os.path.isdir(path):
-            for parent, dirnames, filenames in os.walk(path):
-                for filename in filenames:
-                    cPaths.append(os.path.join(parent, filename))
-        else:
-            cPaths.append(path)
-    return cPaths
+    rList = []
+    tmp = []
+    gci(paths, rList)
+    for path in rList:
+        if '.m' == os.path.splitext(os.path.basename(path))[1]  or '.mm' == os.path.splitext(os.path.basename(path))[1] :
+            tmp.append(path)
+    return tmp
 
 def dealWithPaths2(paths):
-    allPaths = dealWithPaths1(paths)
     rList = []
-    for path in allPaths:
+    tmp = []
+    gci(paths,rList)
+    for path in rList:
         if os.path.basename(path) == 'Localizable.strings':
-            rList.append(path)
-    return rList
+            tmp.append(path)
+    return tmp
 
 
 
@@ -93,4 +101,5 @@ else:
     t = '//  ' + t
     for outPath in ofiles:
         writeTableToLocalizableFile(outPath,addTable,t)
+
 
